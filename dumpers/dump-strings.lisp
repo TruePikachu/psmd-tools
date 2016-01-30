@@ -2,9 +2,10 @@
 (require "asdf")
 (require "farc")
 (require "memfile")
+(require "psmd-dir")
 (use-package :memfile)
 (defvar *filename-map*
-  (with-open-file (in "/psmd/data/string-name-map.dat")
+  (with-open-file (in (psmd-dir:path-to #P"data/string-name-map.dat"))
     (with-standard-io-syntax
       (read in))))
 (defvar *all-strings* (make-hash-table))
@@ -144,16 +145,14 @@
         (setf (gethash (data-le memfile (+ #x4 entry-base) #x4) result)
               (read-string memfile (data-le memfile entry-base #x4)))))
     result))
-(ensure-directories-exist "/psmd/data/string-table/")
+(ensure-directories-exist (psmd-dir:path-to "data/string-table/"))
 (let ((fileinfo-hash (farc:get-files
-                       (with-open-file (in "/psmd/romfs/message_us.bin"
-                                           :element-type '(unsigned-byte 8))
-                         (mf:load-mem in)))))
+                       (psmd-dir:memfile-of #P"romfs/message_us.bin"))))
   (loop for file-id being each hash-key in fileinfo-hash
         using (hash-value file-mem)
-        do (with-open-file (out (concatenate 'string
-                                             "/psmd/data/string-table/"
-                                             (getf *filename-map* file-id))
+        do (with-open-file (out (merge-pathnames (getf *filename-map* file-id)
+                                                 (psmd-dir:path-to
+                                                   "data/string-table/"))
                                 :direction :output
                                 :if-exists :supersede)
              (let ((table (dump-string-table file-mem)))
@@ -162,7 +161,7 @@
                      (format out "0x~8,'0X ~A~%"
                              str-id str-data)
                      (setf (gethash str-id *all-strings*) str-data))))))
-(with-open-file (out "/psmd/data/string-table.dat"
+(with-open-file (out (psmd-dir:path-to "data/string-table.dat")
                      :direction :output
                      :if-exists :supersede)
   (with-standard-io-syntax
