@@ -83,12 +83,33 @@
       (#x0000 (values nil position))
       (#x0009 (values (list #\SYMBOL_FOR_HORIZONTAL_TABULATION) position))
       (#x000A (values (list #\SYMBOL_FOR_LINE_FEED) position))
+      (#xA04E (values "«MIST CONTINENT»" position))
       (#xA052 (values "«ICON NRM»" position))
       (#xA053 (values "«ICON FIR»" position))
+      (#xA054 (values "«ICON GRS»" position))
+      (#xA055 (values "«ICON WTR»" position))
       (#xA056 (values "«ICON ELE»" position))
+      (#xA057 (values "«ICON GND»" position))
       (#xA058 (values "«ICON FLY»" position))
+      (#xA05E (values "«SAND CONTINENT»" position))
+      (#xA05F (values "«AIR CONTINENT»" position))
+      (#xA060 (values "«WATER CONTINENT»" position))
+      (#xA061 (values "«GRASS CONTINENT»" position))
+      (#xA063 (values "«ICON RCK»" position))
+      (#xA064 (values "«ICON GHO»" position))
+      (#xA065 (values "«ICON FGT»" position))
+      (#xA067 (values "«ICON ICE»" position))
+      (#xA068 (values "«ICON STL»" position))
+      (#xA069 (values "«ICON DRG»" position))
       (#xA06A (values "«ICON DRK»" position))
       (#xA072 (values "«$»" position))
+      (#xA09B (values "«(A)»" position)) ; A button
+      (#xA09C (values "«(B)»" position)) ; B button
+      (#xA09D (values "«(X)»" position)) ; X button
+      (#xA09E (values "«(Y)»" position)) ; Y button
+      (#xA09F (values "«[L]»" position)) ; L button
+      (#xA0A0 (values "«[R]»" position)) ; R button
+      (#xA0C2 (values "«MoveCC»" position)) ; Move Cuts Corners
       (#xD000 (values "«Team»" position))
       (#xD100 (values "«Hero»" position))
       (#xD200 (values "«Partner»" position))
