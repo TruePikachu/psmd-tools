@@ -1,0 +1,3 @@
+(; Offset list for /romfs/code.bin
+ :item-uuid-list #x82BFAC   ; First four bytes: 05 23 26 3A
+ )
