@@ -1,0 +1,20 @@
+(require "memfile")
+(defpackage :farc
+  (:use :common-lisp :memfile)
+  (:export :get-files))
+(in-package :farc)
+(defun get-files (memfile)
+  "Get a hash of memfiles from the FARC, mapping from ID"
+  (let* ((result (make-hash-table))
+         (fr-base (data-le memfile #x2C #x4))
+         (fat-mem (chunk-mem memfile #x80 (data-le memfile #x28 #x4)))
+         (fi-ref (data-le fat-mem #x4 #x4))
+         (ft-base (data-le fat-mem (+ fi-ref #x0) #x4))
+         (ft-size (data-le fat-mem (+ fi-ref #x4) #x4)))
+    (dotimes (i ft-size)
+      (let ((entry-ref (+ ft-base (* #xC i))))
+        (setf (gethash (data-le fat-mem (+ entry-ref #x0) #x4) result)
+              (chunk-mem memfile
+                         (+ fr-base (data-le fat-mem (+ entry-ref #x4) #x4))
+                         (data-le fat-mem (+ entry-ref #x8) #x4)))))
+    result))
