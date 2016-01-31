@@ -1,4 +1,6 @@
 (; Offset list for /romfs/code.bin
- :item-uuid-list #x82BFAC   ; First four bytes: 05 23 26 3A
- :item-short-description-uuid-list #x83283C	; First four bytes: ED 26 E5 37
+ :pkmn-name-uuid-list		#x82A814	; First four bytes: 3A 8D DA C0
+ :pkmn-category-uuid-list	#x82B764	; First four bytes: D2 0A 56 F5
+ :item-name-uuid-list		#x82BFAC	; First four bytes: 05 23 26 3A
+ :item-short-desc-uuid-list	#x83283C	; First four bytes: ED 26 E5 37
  )

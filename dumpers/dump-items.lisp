@@ -43,7 +43,7 @@
   (let ((memfile
           (psmd-dir:memfile-of #P"exefs/code.bin")))
     (loop for i from 0 to (1- *n-items*)
-          for pos = (bo:offset :item-uuid-list) then (+ pos #x4)
+          for pos = (bo:offset :item-name-uuid-list) then (+ pos #x4)
           collect (data-le memfile pos #x4))))
 (loop for i = 0 then (1+ i)
       for elem in *the-data*
