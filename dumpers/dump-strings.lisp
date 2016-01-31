@@ -2,9 +2,10 @@
 (require "asdf")
 (require "farc")
 (require "memfile")
+(require "psmd-dir")
 (use-package :memfile)
 (defvar *filename-map*
-  (with-open-file (in "/psmd/data/string-name-map.dat")
+  (with-open-file (in (psmd-dir:path-to #P"data/string-name-map.dat"))
     (with-standard-io-syntax
       (read in))))
 (defvar *all-strings* (make-hash-table))
@@ -83,12 +84,33 @@
       (#x0000 (values nil position))
       (#x0009 (values (list #\SYMBOL_FOR_HORIZONTAL_TABULATION) position))
       (#x000A (values (list #\SYMBOL_FOR_LINE_FEED) position))
+      (#xA04E (values "«MIST CONTINENT»" position))
       (#xA052 (values "«ICON NRM»" position))
       (#xA053 (values "«ICON FIR»" position))
+      (#xA054 (values "«ICON GRS»" position))
+      (#xA055 (values "«ICON WTR»" position))
       (#xA056 (values "«ICON ELE»" position))
+      (#xA057 (values "«ICON GND»" position))
       (#xA058 (values "«ICON FLY»" position))
+      (#xA05E (values "«SAND CONTINENT»" position))
+      (#xA05F (values "«AIR CONTINENT»" position))
+      (#xA060 (values "«WATER CONTINENT»" position))
+      (#xA061 (values "«GRASS CONTINENT»" position))
+      (#xA063 (values "«ICON RCK»" position))
+      (#xA064 (values "«ICON GHO»" position))
+      (#xA065 (values "«ICON FGT»" position))
+      (#xA067 (values "«ICON ICE»" position))
+      (#xA068 (values "«ICON STL»" position))
+      (#xA069 (values "«ICON DRG»" position))
       (#xA06A (values "«ICON DRK»" position))
       (#xA072 (values "«$»" position))
+      (#xA09B (values "«(A)»" position)) ; A button
+      (#xA09C (values "«(B)»" position)) ; B button
+      (#xA09D (values "«(X)»" position)) ; X button
+      (#xA09E (values "«(Y)»" position)) ; Y button
+      (#xA09F (values "«[L]»" position)) ; L button
+      (#xA0A0 (values "«[R]»" position)) ; R button
+      (#xA0C2 (values "«MoveCC»" position)) ; Move Cuts Corners
       (#xD000 (values "«Team»" position))
       (#xD100 (values "«Hero»" position))
       (#xD200 (values "«Partner»" position))
@@ -123,16 +145,14 @@
         (setf (gethash (data-le memfile (+ #x4 entry-base) #x4) result)
               (read-string memfile (data-le memfile entry-base #x4)))))
     result))
-(ensure-directories-exist "/psmd/data/string-table/")
+(ensure-directories-exist (psmd-dir:path-to "data/string-table/"))
 (let ((fileinfo-hash (farc:get-files
-                       (with-open-file (in "/psmd/romfs/message_us.bin"
-                                           :element-type '(unsigned-byte 8))
-                         (mf:load-mem in)))))
+                       (psmd-dir:memfile-of #P"romfs/message_us.bin"))))
   (loop for file-id being each hash-key in fileinfo-hash
         using (hash-value file-mem)
-        do (with-open-file (out (concatenate 'string
-                                             "/psmd/data/string-table/"
-                                             (getf *filename-map* file-id))
+        do (with-open-file (out (merge-pathnames (getf *filename-map* file-id)
+                                                 (psmd-dir:path-to
+                                                   "data/string-table/"))
                                 :direction :output
                                 :if-exists :supersede)
              (let ((table (dump-string-table file-mem)))
@@ -141,7 +161,7 @@
                      (format out "0x~8,'0X ~A~%"
                              str-id str-data)
                      (setf (gethash str-id *all-strings*) str-data))))))
-(with-open-file (out "/psmd/data/string-table.dat"
+(with-open-file (out (psmd-dir:path-to "data/string-table.dat")
                      :direction :output
                      :if-exists :supersede)
   (with-standard-io-syntax
