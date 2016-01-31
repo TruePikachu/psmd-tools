@@ -2,6 +2,7 @@
 (require "asdf")
 (require "bin-offsets")
 (require "memfile")
+(require "psmd-dir")
 (require "string-table")
 (use-package :memfile)
 (defstruct item-data
@@ -16,9 +17,7 @@
   unk_1C
   unk_20)
 (defvar *item-data-info*
-  (with-open-file (in "/psmd/romfs/item_data_info.bin"
-                      :element-type '(unsigned-byte 8))
-    (load-mem in)))
+  (psmd-dir:memfile-of #P"romfs/item_data_info.bin"))
 (defvar *n-items* (floor (get-size *item-data-info*) #x24))
 (defvar *the-data*
   (loop for pos = #x0 then (+ pos #x24)
@@ -36,9 +35,7 @@
                   :unk_20 (data-le *item-data-info* (+ pos #x20) #x4))))
 (defvar *name-lookup*
   (let ((memfile
-          (with-open-file (in "/psmd/exefs/code.bin"
-                              :element-type '(unsigned-byte 8))
-            (load-mem in))))
+          (psmd-dir:memfile-of #P"exefs/code.bin")))
     (loop for i from 0 to (1- *n-items*)
           for pos = (bo:offset :item-uuid-list) then (+ pos #x4)
           collect (data-le memfile pos #x4))))
