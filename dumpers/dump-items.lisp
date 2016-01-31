@@ -17,7 +17,8 @@
   unk_14
   unk_18
   unk_1C
-  unk_20)
+  unk_20
+  unk_22)
 (defvar *item-data-info*
   (psmd-dir:memfile-of #P"romfs/item_data_info.bin"))
 (defvar *n-items* 894) ; TODO File actually goes beyond this point, what's there?
@@ -36,7 +37,8 @@
                   :unk_14 (data-le *item-data-info* (+ pos #x14) #x4)
                   :unk_18 (data-le *item-data-info* (+ pos #x18) #x4)
                   :unk_1C (data-le *item-data-info* (+ pos #x1C) #x4)
-                  :unk_20 (data-le *item-data-info* (+ pos #x20) #x4))))
+                  :unk_20 (data-le *item-data-info* (+ pos #x20) #x2)
+                  :unk_22 (data-le *item-data-info* (+ pos #x22) #x2))))
 (defvar *name-lookup*
   (let ((memfile
           (psmd-dir:memfile-of #P"exefs/code.bin")))
@@ -45,7 +47,7 @@
           collect (data-le memfile pos #x4))))
 (loop for i = 0 then (1+ i)
       for elem in *the-data*
-      do (format t "[~3D] 0x~4,'0X ~5DP ~5DP ~{0x~4,'0X~#^ ~} ~{0x~8,'0X~#^ ~} (~A)~%"
+      do (format t "[~3D] 0x~4,'0X ~5DP ~5DP ~{0x~4,'0X~#^ ~} ~{0x~8,'0X~#^ ~} ~{0x~4,'0X~#^ ~} (~A)~%"
                  i
                  (item-data-unk_00 elem)
                  (item-data-cost-buy elem)
@@ -57,6 +59,7 @@
                        (item-data-unk_10 elem)
                        (item-data-unk_14 elem)
                        (item-data-unk_18 elem)
-                       (item-data-unk_1C elem)
-                       (item-data-unk_20 elem))
+                       (item-data-unk_1C elem))
+                 (list (item-data-unk_20 elem)
+                       (item-data-unk_22 elem))
                  (st:uuid-string (nth i *name-lookup*))))
