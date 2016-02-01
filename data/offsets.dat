@@ -2,5 +2,33 @@
  :pkmn-name-uuid-list		#x82A814	; First four bytes: 3A 8D DA C0
  :pkmn-category-uuid-list	#x82B764	; First four bytes: D2 0A 56 F5
  :item-name-uuid-list		#x82BFAC	; First four bytes: 05 23 26 3A
- :item-short-desc-uuid-list	#x83283C	; First four bytes: ED 26 E5 37
+ :move-name-uuid-list		#x82CF88	; First four bytes: C0 CB 80 58
+ :status-cap-uuid-list		#x82DC60	; First four bytes: 37 5C 5A FC
+ :status-uuid-list		#x82DF0C	; First four bytes: BF 0B CF 0F
+ :dun-status-cap-uuid-list	#x82E1B8	; First four bytes: 21 9D 59 49
+ :dun-status-uuid-list		#x82E234	; First four bytes: 4B EB F6 7A
+ :dun-name-uuid-list-1		#x82E2B0	; First four bytes: 45 6C 19 08
+ :dun-name-uuid-list-2		#x82E69C	; First four bytes: 85 08 31 1F
+ :dun-name-uuid-list-3		#x82EA88	; First four bytes: C5 A5 49 26
+ :dun-name-uuid-list-4		#x82EE74	; First four bytes: 05 C1 61 31
+ :tactic-name-uuid-list		#x82F260	; First four bytes: FC 3B 0F 84
+ :skill-name-uuid-list		#x82F280	; First four bytes: 80 0C 3A 39
+ :ability-name-uuid-list	#x82F314	; First four bytes: C1 F4 EB F1
+ :type-name-uuid-list		#x82F61C	; First four bytes: 62 2F 64 43
+ :emera-name-uuid-list		#x830EF0	; First four bytes: C0 20 77 EF
+ :rank-name-uuid-list		#x8316F4	; First four bytes: 36 87 C0 03
+ :song-name-uuid-list		#x83172C	; First four bytes: 99 0D 03 2A
+ :item-info-uuid-list		#x831A44	; First four bytes: 7B 51 3F 7A
+ :item-desc-uuid-list		#x83283C	; First four bytes: ED 26 E5 37
+ :skill-info-uuid-list		#x833638	; First four bytes: 48 88 11 79
+ :ability-info-uuid-list	#x8336B0	; First four bytes: 87 A0 49 39
+ :dun-status-info-uuid-list	#x833CB0	; First four bytes: 47 48 1C C2
+ :status-info-uuid-list		#x833D2C	; First four bytes: 95 52 5F C5
+ :tactic-info-uuid-list		#x833FD0	; First four bytes: C7 33 14 DB
+ :tactic-desc-uuid-list		#x833FF0	; First four bytes: AE 19 A4 0C
+ :move-info-uuid-list		#x834010	; First four bytes: 20 35 BF 57
+ :move-desc-uuid-list		#x834D7C	; First four bytes: 10 51 5B 19
+ :emera-desc-uuid-list		#x835A54	; First four bytes: 51 19 4A 58
+ :pkmn-chat-pinch-uuid-list	#x835B78	; First four bytes: 1C 76 1A 7F
+ :pkmn-chat-okay-uuid-list	#x8369E8	; First four bytes: 97 E2 06 21
  )
